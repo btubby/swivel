@@ -1,10 +1,10 @@
 {
   "name": "swiveler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Made with create-react-library",
   "author": "btubby",
   "license": "MIT",
-  "repository": "btubby/swiveler",
+  "repository": "btubby/swivel",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",

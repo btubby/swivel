@@ -1,6 +1,6 @@
 {
   "name": "swiveler-example",
-  "homepage": "https://btubby.github.io/swiveler",
+  "homepage": "https://github.com/btubby/swiveler",
   "version": "0.0.0",
   "private": true,
   "dependencies": {

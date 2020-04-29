@@ -3,58 +3,55 @@ import React, { useState, useEffect } from "react";
 import { Container, Image } from "./styles";
 
 export default function SwivellingFace(props) {
-  const {
-    xCord,    // xCord and yCord are the current X and Y coordinates of the pointer
-    yCord, 
-    // The following are the 9 image files
-    straight,
-    w,
-    e,
-    n,
-    s,
-    nw,
-    ne,
-    sw,
-    se
-  } = props;
 
-  const [image, setImage] = useState(straight);
-  const [N, setN1] = useState(0);
-  const [S, setS1] = useState(0);
-  const [E, setE1] = useState(0);
-  const [W, setW1] = useState(0);
+  const [imageToDisplay, setImageToDisplay] = useState(props.straight);
+  const [containerEdgeTop,    setContainerEdgeTop] = useState(0);
+  const [containerEdgeBottom, setcontainerEdgeBottom] = useState(0);
+  const [containerEdgeRight,  setcontainerEdgeRight] = useState(0);
+  const [containerEdgeLeft,   setcontainerEdgeLeft] = useState(0);
 
   useEffect(() => {
+    console.log(`TYPE[${props.title}] ` +
+    `POSITIONS: top[${containerEdgeTop}] bottom/s[${containerEdgeBottom}] ` + 
+    `right/e[${containerEdgeRight}] left/w[${containerEdgeLeft}]`
+    );
+
+    // This map is used to decide which image to display; 
+    // We set the bits dependent on the relative location of the mouse to use
+    // for example, when the pointer is northEast of this conponent, 
+    // the 'n' and 'e' bits will be set to true.
     let map = { n: 0, e: 0, s: 0, w: 0 };
-    // console.log(`${type} top: ${N} bottom: ${S} right: ${E} left: ${W}`);
-    // Decide which image to display dependant on the relative potition of the mouse to this component
-    map.n = (yCord <= N) ? 1 : 0;
-    map.e = (xCord >= E) ? 1 : 0;
-    map.w = (xCord <= W) ? 1 : 0;
-    map.s = (yCord >= S) ? 1 : 0;
-    console.log(`x:${xCord}, y:${yCord} `, map);
+    map.n = (props.yCord <= containerEdgeTop)    ? 1 : 0;
+    map.e = (props.xCord >= containerEdgeRight)  ? 1 : 0;
+    map.w = (props.xCord <= containerEdgeLeft)   ? 1 : 0;
+    map.s = (props.yCord >= containerEdgeBottom) ? 1 : 0;
+    console.log(`x:${props.xCord}, y:${props.yCord} `, map);
+
     // Set the correct image 
-    setImage(straight);
-    (map.n) && setImage(n);
-    (map.e) && setImage(e);
-    (map.s) && setImage(s);
-    (map.w) &&  setImage(w);
-    (map.n && map.e) && setImage(ne);
-    (map.s && map.e) && setImage(se);
-    (map.s && map.w) && setImage(sw);
-    (map.w && map.n) && setImage(nw);
-  },[yCord, N, xCord, E, W, S, straight, n, e, s, w, ne, se, sw, nw]);
+    setImageToDisplay(props.straight);
+    (map.n) && setImageToDisplay(props.n);
+    (map.e) && setImageToDisplay(props.e);
+    (map.s) && setImageToDisplay(props.s);
+    (map.w) &&  setImageToDisplay(props.w);
+    (map.n && map.e) && setImageToDisplay(props.ne);
+    (map.s && map.e) && setImageToDisplay(props.se);
+    (map.s && map.w) && setImageToDisplay(props.sw);
+    (map.w && map.n) && setImageToDisplay(props.nw);
+  },[props.yCord, props.xCord]);
+
   return (
     <Container
-      ref={dd => {
-        if (!dd) return;
-        setN1(dd.getBoundingClientRect().top);
-        setS1(dd.getBoundingClientRect().bottom);
-        setE1(dd.getBoundingClientRect().right);
-        setW1(dd.getBoundingClientRect().left);
+      ref={element => {
+        if (!element) return;
+        // Here we find and store the absolute positions of the top, bottom, left and right edges of our outer container
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+        setContainerEdgeTop(Math.round(element.getBoundingClientRect().top));
+        setcontainerEdgeBottom(Math.round(element.getBoundingClientRect().bottom));
+        setcontainerEdgeRight(Math.round(element.getBoundingClientRect().right));
+        setcontainerEdgeLeft(Math.round(element.getBoundingClientRect().left));
       }}
     >
-      <Image src={image} alt="{image}" />
+      <Image src={imageToDisplay} title={props.title ? props.title : ''} />
     </Container>
   );
 }

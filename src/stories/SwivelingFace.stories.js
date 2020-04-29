@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { action } from '@storybook/addon-actions';
+import { withKnobs, text, boolean, number } from "@storybook/addon-knobs";
+
 import SwivellingFace from '..';
 
 import wstraight from "./images/straight.jpg";
@@ -15,19 +17,22 @@ import styled from 'styled-components';
 
 
 export default {
-  title: 'SwivellingFace',
+  title: 'Swivel component with photos',
   component: SwivellingFace,
+  decorators: [withKnobs]
 };
 
-export const OuterContainer = styled.div`
+
+// this is the container the that bounds the mouse limits
+ const OuterContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
   width:100%;
+  border: 1px solid red;
 `;
-
-export const FloatingContent = styled.div`
+ const FloatingContent = styled.div`
   align-content: center;
   position:absolute;
   top:3%;
@@ -37,14 +42,13 @@ export const FloatingContent = styled.div`
   z-index:1000;
 `;
 
-export const Padding = styled.div`
-padding:100px;
+ const Padding = styled.div`
+  padding:100px;
 `;
 
-export function Swivel() {
+export function SwivelWill() {
     const [xCord, setxCord] = useState(0);
     const [yCord, setyCord] = useState(0);
-
     return (
         <OuterContainer
             onMouseMove={e => {
@@ -52,35 +56,22 @@ export function Swivel() {
                 setyCord(e.nativeEvent.clientY);
             }}
         >
-                <Padding>
-                <SwivellingFace 
-                    xCord={xCord}
-                    yCoord={yCord}
-                    straight= {wstraight}
-                    n= {wnorth}
-                    ne= {wnortheast}
-                    e= {weast}
-                    s= {wsouth}
-                    se= {wsoutheast}
-                    sw= {wsouthwest}
-                    w={wwest}
-                    nw= {wnorthwest}
-                />
-                  <SwivellingFace 
-                    xCord={xCord}
-                    yCoord={yCord}
-                    straight= {wstraight}
-                    n= {wnorth}
-                    ne= {wnortheast}
-                    e= {weast}
-                    s= {wsouth}
-                    se= {wsoutheast}
-                    sw= {wsouthwest}
-                    w={wwest}
-                    nw= {wnorthwest}
-                />
-               
-               </Padding>
+        <Padding>
+        <SwivellingFace 
+          title={"Will's Mug"}
+          xCord={xCord}
+          yCord={yCord}
+          straight= {wstraight}
+          n= {wnorth}
+          ne= {wnortheast}
+          e= {weast}
+          s= {wsouth}
+          se= {wsoutheast}
+          sw= {wsouthwest}
+          w={wwest}
+          nw= {wnorthwest}
+        />
+        </Padding>
      </OuterContainer>       
     )
 }

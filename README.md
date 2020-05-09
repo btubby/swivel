@@ -1,6 +1,8 @@
 # swiveler
 
-## Work in progress.
+## Work in progress
+
+See storybook for upto-date usage
 
 > Made with create-react-library
 https://www.npmjs.com/package/swiveler
@@ -18,12 +20,12 @@ npm install --save swiveler
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'swiveler'
+import Swivler from 'swiveler'
 import 'swiveler/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <Swivler />
   }
 }
 ```

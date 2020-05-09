@@ -19,14 +19,37 @@ npm install --save swiveler
 
 ```jsx
 import React, { Component } from 'react'
-
 import Swivler from 'swiveler'
-import 'swiveler/dist/index.css'
 
-class Example extends Component {
-  render() {
-    return <Swivler />
-  }
+export function SwivelWill() {
+    const [xCord, setxCord] = useState(0);
+    const [yCord, setyCord] = useState(0);
+    return (
+        <OuterContainer
+            onMouseMove={e => {
+                setxCord(e.nativeEvent.clientX);
+                setyCord(e.nativeEvent.clientY);
+            }}
+        >
+        <Padding>
+        <SwivellingFace 
+          title={"Will's Mug"}
+          xCord={xCord}
+          yCord={yCord}
+          
+          straight= {image_straight}
+          n= {image_north}
+          ne= {image_northeast}
+          e= {image_east}
+          s= {image_south}
+          se= {image_southeast}
+          sw= {image_southwest}
+          w={image_west}
+          nw= {image_northwest}
+        />
+        </Padding>
+     </OuterContainer>       
+    )
 }
 ```
 

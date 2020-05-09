@@ -32,7 +32,7 @@ export function SwivelWill() {
             }}
         >
         <Padding>
-        <SwivellingFace 
+        <Swivler 
           title={"Will's Mug"}
           xCord={xCord}
           yCord={yCord}

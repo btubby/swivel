@@ -3,6 +3,8 @@
 This component takes 9 images as props and renders a different one dependant on the relative location of the user's pointer.
 Initially used to show a swiveling face that 'looks' at the mouse pointer.
 
+Example of use: https://github.com/btubby/photofun
+
 ## Work in progress
 
 See storybook for upto-date usage
